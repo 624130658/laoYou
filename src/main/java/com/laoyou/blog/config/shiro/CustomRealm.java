@@ -1,9 +1,12 @@
 package com.laoyou.blog.config.shiro;
 
+import com.laoyou.blog.entity.system.Permission;
+import com.laoyou.blog.entity.system.Role;
 import com.laoyou.blog.entity.system.User;
+import com.laoyou.blog.service.system.PermissionService;
+import com.laoyou.blog.service.system.RoleService;
 import com.laoyou.blog.service.system.UserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
@@ -13,8 +16,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author : YL
@@ -24,6 +28,10 @@ import java.util.Set;
 public class CustomRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private PermissionService permissionService;
 
     /**
      * @param principalCollection :
@@ -34,13 +42,14 @@ public class CustomRealm extends AuthorizingRealm {
      **/
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        String account = (String) SecurityUtils.getSubject().getPrincipal();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        Set<String> stringSet = new HashSet<>();
-        // TODO: 2020/11/18  
-        stringSet.add("user:show");
-        stringSet.add("user:admin");
-        info.setStringPermissions(stringSet);
+        List<Role> roles = roleService.getRoles(user);
+        Set<String> roleSet = roles.stream().map(x -> x.getCode().trim()).collect(Collectors.toSet());
+        List<Permission> permissions = permissionService.getPermissions(user);
+        Set<String> permissionSet = permissions.stream().map(x -> x.getCode().trim()).collect(Collectors.toSet());
+        info.setRoles(roleSet);
+        info.setStringPermissions(permissionSet);
         return info;
     }
 
@@ -56,6 +65,6 @@ public class CustomRealm extends AuthorizingRealm {
         String account = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
         User user = userService.validationLogin(account, password);
-        return new SimpleAuthenticationInfo(account, password, getName());
+        return new SimpleAuthenticationInfo(user, password, getName());
     }
 }

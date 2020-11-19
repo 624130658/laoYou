@@ -35,5 +35,9 @@ public enum Status implements BaseEnum {
     }
 
     public static class Convert extends BaseEnumConverter<Status> {
+        @Override
+        protected Class<Status> getClazz() {
+            return Status.class;
+        }
     }
 }
