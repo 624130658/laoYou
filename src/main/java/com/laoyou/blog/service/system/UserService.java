@@ -30,4 +30,14 @@ public interface UserService {
      * @date : 2020/11/17 10:00
      **/
     User getUserByAccount(String account);
+
+    /**
+     * @param account  : 帐号
+     * @param password : 密码
+     * @return : User 登录的帐号信息
+     * @author : YL
+     * @description : 登录验证
+     * @date : 2020/11/18 15:49
+     **/
+    User validationLogin(String account, String password);
 }

@@ -6,7 +6,7 @@ package com.laoyou.blog.constant.enums;
  * @date : 2020/11/17 9:57
  **/
 public enum ResultCode implements BaseEnum {
-    SUCCESS(200, "请求成功"), ERROR(000, "未知错误");
+    SUCCESS(200, "请求成功"), ERROR(0, "未知错误");
     private Integer code;
     private String desc;
 

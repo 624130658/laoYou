@@ -1,6 +1,8 @@
 package com.laoyou.blog.config;
 
+import com.laoyou.blog.exception.BaseException;
 import com.laoyou.blog.vo.Result;
+import org.apache.shiro.authc.AuthenticationException;
 import org.slf4j.Logger;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -29,7 +31,7 @@ public class ResultAdvice extends AbstractMappingJacksonResponseBodyAdvice {
                 result.success(value);
                 mappingJacksonValue.setValue(result);
             }
-        }else{
+        } else {
             if (!(value instanceof Result)) {
                 Result result = new Result();
                 result.success(value);
@@ -37,6 +39,23 @@ public class ResultAdvice extends AbstractMappingJacksonResponseBodyAdvice {
             }
         }
     }
+
+    @ExceptionHandler(value = BaseException.class)
+    public Result baseExceptionHandler(HttpServletRequest req, BaseException e) {
+        logger.error("业务异常！原因是:", e);
+        Result result = new Result();
+        result.error(e.getCode(), e.getMessage());
+        return result;
+    }
+
+    @ExceptionHandler(value = AuthenticationException.class)
+    public Result authenticationExceptionHandler(HttpServletRequest req, AuthenticationException e) {
+        logger.error("登陆异常！原因是:", e);
+        Result result = new Result();
+        result.error(((BaseException) e.getCause()).getCode(), e.getCause().getMessage());
+        return result;
+    }
+
 
     @ExceptionHandler(value = Exception.class)
     public Result exceptionHandler(HttpServletRequest req, Exception e) {

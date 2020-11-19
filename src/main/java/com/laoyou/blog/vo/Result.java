@@ -37,6 +37,12 @@ public class Result<T> {
         setSuccess(false);
     }
 
+    public void error(Integer code, String message) {
+        setCode(code);
+        setMessage(message);
+        setSuccess(false);
+    }
+
     public void error(String message) {
         setCode(ResultCode.ERROR.getCode());
         setMessage(message);

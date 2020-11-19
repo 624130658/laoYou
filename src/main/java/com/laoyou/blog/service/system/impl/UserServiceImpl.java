@@ -1,12 +1,16 @@
 package com.laoyou.blog.service.system.impl;
 
+import com.laoyou.blog.constant.enums.ResultCode;
+import com.laoyou.blog.constant.enums.Status;
 import com.laoyou.blog.entity.system.User;
+import com.laoyou.blog.exception.BaseException;
 import com.laoyou.blog.repository.system.UserRepository;
 import com.laoyou.blog.service.system.UserService;
 import com.laoyou.blog.util.EntityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,7 +33,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByAccount(String account) {
-        User byAccount = userRepository.findByAccount(account);
-        return byAccount;
+        List<User> byAccount = userRepository.findByAccount(account);
+        if (null == byAccount || byAccount.size() == 0) {
+            return null;
+        }
+        return byAccount.get(0);
+    }
+
+    @Override
+    public User validationLogin(String account, String password) {
+        User userByAccount = getUserByAccount(account);
+        if (null == userByAccount) {
+            throw new BaseException(ResultCode.ERROR);
+        }
+        if (!password.equals(userByAccount.getPassword())) {
+            throw new BaseException(ResultCode.ERROR);
+        }
+        if (Status.INVALID.equals(userByAccount.getStatus())) {
+            throw new BaseException(ResultCode.ERROR);
+        }
+        return userByAccount;
     }
 }
