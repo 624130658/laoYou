@@ -8,6 +8,9 @@ import com.laoyou.blog.repository.system.UserRepository;
 import com.laoyou.blog.service.system.UserService;
 import com.laoyou.blog.util.EntityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,5 +56,12 @@ public class UserServiceImpl implements UserService {
             throw new BaseException(ResultCode.ERROR);
         }
         return userByAccount;
+    }
+
+    @Override
+    public Page<User> getPage(User user, Pageable pageable) {
+        Example<User> example = Example.of(user);
+        Page<User> all = userRepository.findAll(example, pageable);
+        return all;
     }
 }

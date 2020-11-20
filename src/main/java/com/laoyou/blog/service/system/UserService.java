@@ -2,6 +2,8 @@ package com.laoyou.blog.service.system;
 
 
 import com.laoyou.blog.entity.system.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
     /**
@@ -40,4 +42,14 @@ public interface UserService {
      * @date : 2020/11/18 15:49
      **/
     User validationLogin(String account, String password);
+
+    /**
+     * @param user     : 查询参数
+     * @param pageable : 分页参数
+     * @return : 用户分页列表
+     * @author : YL
+     * @description : 获得用户分页列表
+     * @date : 2020/11/19 16:45
+     **/
+    Page<User> getPage(User user, Pageable pageable);
 }

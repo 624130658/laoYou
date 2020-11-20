@@ -4,6 +4,7 @@ import com.laoyou.blog.constant.enums.ResultCode;
 import com.laoyou.blog.exception.BaseException;
 import com.laoyou.blog.vo.Result;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -49,12 +50,25 @@ public class ResultAdvice extends AbstractMappingJacksonResponseBodyAdvice {
         return result;
     }
 
-    @ExceptionHandler(value = AuthenticationException.class)
-    public Result authenticationExceptionHandler(HttpServletRequest req, AuthenticationException e) {
-        logger.error("权限异常！原因是:", e);
+
+    @ExceptionHandler(value = AuthorizationException.class)
+    public Result authorizationExceptionHandler(HttpServletRequest req, AuthorizationException e) {
+        logger.error("授权异常！原因是:", e);
         Result result = new Result();
         if (e.getCause() instanceof BaseException) {
             result.error(((BaseException) e.getCause()).getCode(), e.getCause().getMessage());
+        } else {
+            result.error(ResultCode.AUTH_ERROR, e.getMessage());
+        }
+        return result;
+    }
+
+    @ExceptionHandler(value = AuthenticationException.class)
+    public Result authenticationExceptionHandler(HttpServletRequest req, AuthenticationException e) {
+        logger.error("验证异常！原因是:", e);
+        Result result = new Result();
+        if (e.getCause() instanceof BaseException) {
+            result.error(((BaseException) e.getCause()).getCode(), e.getMessage());
         } else {
             result.error(ResultCode.AUTH_ERROR, e.getCause().getMessage());
         }
