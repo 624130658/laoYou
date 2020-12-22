@@ -41,12 +41,26 @@ public class SystemController {
         return currentUser;
     }
 
+    /**
+     * 登出
+     *
+     * @return 布尔值 true登出成功
+     * @Author YL
+     * @Date 2020/12/22/022 15:45
+     **/
+    @RequestMapping("/logout")
+    public Boolean logout() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return true;
+    }
+
     @RequestMapping("/test")
     @ResultAdviceAnnotation(intercept = true)
-    @RequiresPermissions("user:show")
+//    @RequiresPermissions("user:show")
     public Object test() throws Exception {
         Subject subject = SecurityUtils.getSubject();
-        boolean admin = subject.isPermitted("admin");
+//        boolean admin = subject.isPermitted("admin");
 //        throw new Exception("2222");
         User user = new User();
         user.setAccount("admin");

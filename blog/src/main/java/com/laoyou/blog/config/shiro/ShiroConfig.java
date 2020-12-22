@@ -23,6 +23,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/system/notRole");
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/system/login", "anon");
+        filterChainDefinitionMap.put("/system/logout", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
