@@ -26,8 +26,8 @@ public enum ResultCode implements BaseEnum {
     }
 
     @Override
-    public Status getEnum(Integer code) {
-        Status result = BaseEnum.valueOf(ResultCode.class, code);
+    public ResultCode getEnum(Integer code) {
+        ResultCode result = BaseEnum.valueOf(ResultCode.class, code);
         return result;
     }
 }

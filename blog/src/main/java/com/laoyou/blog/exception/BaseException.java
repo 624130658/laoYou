@@ -1,6 +1,6 @@
 package com.laoyou.blog.exception;
 
-import com.laoyou.blog.constant.enums.ResultCode;
+import com.laoyou.blog.constant.enums.BaseEnum;
 import lombok.Data;
 
 /**
@@ -24,8 +24,8 @@ public class BaseException extends RuntimeException {
         this.code = code;
     }
 
-    public BaseException(ResultCode resultCode) {
-        super(resultCode.getDesc());
-        this.code = resultCode.getCode();
+    public BaseException(BaseEnum baseEnum) {
+        super(baseEnum.getDesc());
+        this.code = baseEnum.getCode();
     }
 }
