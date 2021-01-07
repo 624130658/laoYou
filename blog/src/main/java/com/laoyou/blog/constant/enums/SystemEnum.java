@@ -4,17 +4,18 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.lansive.dispatch.config.EnumSerializer;
 
 /**
- * @author : YL
- * @description : 请求返回枚举
- * @date : 2020/11/17 9:57
+ * 系统枚举
+ *
+ * @Author YL
+ * @Date 2020/12/23/023 11:33
  **/
 @JsonSerialize(using = EnumSerializer.class)
-public enum ResultCode implements BaseEnum {
-    SUCCESS(200, "请求成功"), ERROR(0, "未知错误"), AUTH_ERROR(1, "认证错误"), SERVICE_ERROR(2, "业务错误");
+public enum SystemEnum implements BaseEnum {
+    SYSTEM_ACCOUNT_PASSWORD_ERROR(100001, "帐号密码错误"),SYSTEM_ACCOUNT_CANCELLED(100002, "帐号已注销");
     private Integer code;
     private String desc;
 
-    ResultCode(int code, String desc) {
+    SystemEnum(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }
@@ -30,8 +31,8 @@ public enum ResultCode implements BaseEnum {
     }
 
     @Override
-    public ResultCode getEnum(Integer code) {
-        ResultCode result = BaseEnum.valueOf(ResultCode.class, code);
+    public SystemEnum getEnum(Integer code) {
+        SystemEnum result = BaseEnum.valueOf(SystemEnum.class, code);
         return result;
     }
 }

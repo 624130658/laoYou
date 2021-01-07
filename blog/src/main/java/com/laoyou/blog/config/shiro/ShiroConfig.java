@@ -1,4 +1,4 @@
-package com.laoyou.blog.config.shiro;
+package com.lansive.dispatch.config.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -6,6 +6,7 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,8 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        shiroFilterFactoryBean.setLoginUrl("/system/login");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/system/notRole");
+        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/logout", "anon");
@@ -29,6 +30,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/public/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/html/**", "anon");
         filterChainDefinitionMap.put("/json/**", "anon");
         filterChainDefinitionMap.put("/images/**", "anon");
         filterChainDefinitionMap.put("/**", "authc");
@@ -40,6 +42,7 @@ public class ShiroConfig {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
         defaultSecurityManager.setRealm(customRealm());
+        defaultSecurityManager.setSessionManager(sessionManager());
         return defaultSecurityManager;
     }
 
@@ -62,7 +65,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Autowired DefaultWebSecurityManager securityManager) {
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Autowired SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
@@ -71,5 +74,13 @@ public class ShiroConfig {
     @Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();
+    }
+
+    @Bean
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        // 去掉shiro登录时url里的JSESSIONID
+        sessionManager.setSessionIdUrlRewritingEnabled(false);
+        return sessionManager;
     }
 }

@@ -1,12 +1,14 @@
-package com.laoyou.blog.entity.system;
+package com.lansive.dispatch.entity.system;
 
-import com.laoyou.blog.entity.BaseEntity;
+import com.lansive.dispatch.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -31,7 +33,11 @@ public class User extends BaseEntity {
 
     @Column(name = "phone", columnDefinition = "varchar(100) comment '手机号码'")
     private String phone;
-
-    @Column(name = "roles", columnDefinition = "varchar(1000) comment '角色id拼接，英文逗号分隔'")
-    private String roles;
+    
+    @ManyToMany(targetEntity = Organization.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "sys_user_organization",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "organization_id", referencedColumnName = "id")}
+    )
+    private Set<Organization> organizations = new HashSet<>();
 }

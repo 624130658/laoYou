@@ -1,6 +1,6 @@
-package com.laoyou.blog.vo;
+package com.lansive.dispatch.vo;
 
-import com.laoyou.blog.constant.enums.ResultCode;
+import com.lansive.dispatch.constant.enums.ResultCode;
 import lombok.Data;
 
 @Data

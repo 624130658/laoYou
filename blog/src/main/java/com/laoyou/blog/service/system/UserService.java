@@ -1,9 +1,13 @@
-package com.laoyou.blog.service.system;
+package com.lansive.dispatch.service.system;
 
 
-import com.laoyou.blog.entity.system.User;
+import com.lansive.dispatch.constant.enums.Status;
+import com.lansive.dispatch.entity.system.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     /**
@@ -52,4 +56,56 @@ public interface UserService {
      * @date : 2020/11/19 16:45
      **/
     Page<User> getPage(User user, Pageable pageable);
+
+    /**
+     * @param user     : 查询参数
+     * @param pageable : 分页参数
+     * @return : 用户分页列表
+     * @author : YL
+     * @description : 获得用户分页列表（根据组织机构）
+     * @date : 2020年12月31日 16:52:06
+     **/
+    Page<User> getPageByOrganizations(User user, Pageable pageable);
+
+    /**
+     * 获得详情页面的数据
+     *
+     * @return 详情页面的数据
+     * @Author YL
+     * @Date 2021年1月7日 13:40:32
+     * @Param user 查询参数
+     **/
+    Map<String, Object> detail(User user);
+
+    /**
+     * 批量修改用户状态
+     *
+     * @return
+     * @Author YL
+     * @Date 2021年1月7日 13:41:51
+     * @Param ids    用户id的集合
+     * @Param status 状态
+     **/
+    List<User> changeStatusByIds(List<Long> ids, Status status);
+
+    /**
+     * 新增
+     *
+     * @return 新增后的用户
+     * @Author YL
+     * @Date 2021年1月7日 13:41:55
+     * @Param user 新增参数
+     * @Param organizationId 组织结构id
+     **/
+    User add(User user, Long organizationId);
+
+    /**
+     * 修改
+     *
+     * @return 修改后的用户
+     * @Author YL
+     * @Date 2021年1月7日 13:42:02
+     * @Param user 修改参数
+     **/
+    User update(User user);
 }

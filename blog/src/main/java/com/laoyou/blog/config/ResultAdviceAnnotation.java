@@ -1,4 +1,4 @@
-package com.laoyou.blog.config;
+package com.lansive.dispatch.config;
 
 import java.lang.annotation.*;
 

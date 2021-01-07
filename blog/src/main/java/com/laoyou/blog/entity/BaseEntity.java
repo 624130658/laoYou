@@ -1,9 +1,11 @@
-package com.laoyou.blog.entity;
+package com.lansive.dispatch.entity;
 
-import com.laoyou.blog.constant.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lansive.dispatch.constant.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,12 +32,16 @@ public class BaseEntity {
     @Column(name = "creator", columnDefinition = "int not null comment '创建人id'")
     private Long creator;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @Column(name = "created", columnDefinition = "datetime not null comment '创建时间'")
     private Date created;
 
     @Column(name = "modifier", columnDefinition = "int not null comment '修改人id'")
     private Long modifier;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @Column(name = "modified", columnDefinition = "datetime not null comment '修改时间'")
     private Date modified;
 }

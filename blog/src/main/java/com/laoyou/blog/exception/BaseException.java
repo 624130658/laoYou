@@ -1,6 +1,6 @@
-package com.laoyou.blog.exception;
+package com.lansive.dispatch.exception;
 
-import com.laoyou.blog.constant.enums.BaseEnum;
+import com.lansive.dispatch.constant.enums.BaseEnum;
 import lombok.Data;
 
 /**

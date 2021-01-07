@@ -1,4 +1,4 @@
-package com.laoyou.blog.constant.enums;
+package com.lansive.dispatch.constant.enums;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,9 +61,10 @@ public interface BaseEnum {
         for (T bean : enumConstants) {
             String desc = bean.getDesc();
             Integer code = bean.getCode();
-            HashMap<String, Object> map = new HashMap<>(2);
+            HashMap<String, Object> map = new HashMap<>(3);
             map.put("code", code);
             map.put("desc", desc);
+            map.put("field", ((Enum) bean).name());
             results.add(map);
         }
         return results;

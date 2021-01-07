@@ -1,17 +1,17 @@
-package com.laoyou.blog.util;
+package com.lansive.dispatch.util;
 
-import com.laoyou.blog.entity.system.Permission;
-import com.laoyou.blog.entity.system.Role;
-import com.laoyou.blog.entity.system.User;
+import com.lansive.dispatch.entity.system.Organization;
+import com.lansive.dispatch.entity.system.Permission;
+import com.lansive.dispatch.entity.system.Role;
+import com.lansive.dispatch.entity.system.User;
 
-import com.laoyou.blog.service.system.PermissionService;
-import com.laoyou.blog.service.system.RoleService;
-import com.laoyou.blog.service.system.UserService;
+import com.lansive.dispatch.service.system.OrganizationService;
+import com.lansive.dispatch.service.system.PermissionService;
+import com.lansive.dispatch.service.system.RoleService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +23,7 @@ import java.util.List;
 public class UserUtil {
     private static RoleService roleService;
     private static PermissionService permissionService;
+    private static OrganizationService organizationService;
 
     /**
      * @return : 当前登录人的用户信息
@@ -59,6 +60,18 @@ public class UserUtil {
         return permissions;
     }
 
+    /**
+     * @return : 当前登录人的组织机构信息
+     * @author : YL
+     * @description : 获得当前登录人的组织机构信息
+     * @date : 2020年12月30日 15:59:29
+     **/
+    public static List<Organization> getCurrentOrganizations() {
+        User currentUser = getCurrentUser();
+        List<Organization> organizations = organizationService.getOrganizations(currentUser);
+        return organizations;
+    }
+
     @Autowired
     public void setRoleService(RoleService roleService) {
         UserUtil.roleService = roleService;
@@ -67,5 +80,10 @@ public class UserUtil {
     @Autowired
     public void setPermissionService(PermissionService permissionService) {
         UserUtil.permissionService = permissionService;
+    }
+
+    @Autowired
+    public void setOrganizationService(OrganizationService organizationService) {
+        UserUtil.organizationService = organizationService;
     }
 }

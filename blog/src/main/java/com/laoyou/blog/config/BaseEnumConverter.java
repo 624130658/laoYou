@@ -1,6 +1,6 @@
-package com.laoyou.blog.config;
+package com.lansive.dispatch.config;
 
-import com.laoyou.blog.constant.enums.BaseEnum;
+import com.lansive.dispatch.constant.enums.BaseEnum;
 
 import javax.persistence.AttributeConverter;
 

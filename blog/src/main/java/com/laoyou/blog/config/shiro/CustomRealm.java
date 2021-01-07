@@ -1,11 +1,11 @@
-package com.laoyou.blog.config.shiro;
+package com.lansive.dispatch.config.shiro;
 
-import com.laoyou.blog.entity.system.Permission;
-import com.laoyou.blog.entity.system.Role;
-import com.laoyou.blog.entity.system.User;
-import com.laoyou.blog.service.system.PermissionService;
-import com.laoyou.blog.service.system.RoleService;
-import com.laoyou.blog.service.system.UserService;
+import com.lansive.dispatch.entity.system.Permission;
+import com.lansive.dispatch.entity.system.Role;
+import com.lansive.dispatch.entity.system.User;
+import com.lansive.dispatch.service.system.PermissionService;
+import com.lansive.dispatch.service.system.RoleService;
+import com.lansive.dispatch.service.system.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

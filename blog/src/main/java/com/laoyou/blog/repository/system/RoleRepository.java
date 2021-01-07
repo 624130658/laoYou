@@ -1,6 +1,6 @@
-package com.laoyou.blog.repository.system;
+package com.lansive.dispatch.repository.system;
 
-import com.laoyou.blog.entity.system.Role;
+import com.lansive.dispatch.entity.system.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,8 +1,8 @@
-package com.laoyou.blog.util;
+package com.lansive.dispatch.util;
 
-import com.laoyou.blog.constant.enums.Status;
-import com.laoyou.blog.entity.BaseEntity;
-import com.laoyou.blog.entity.system.User;
+import com.lansive.dispatch.constant.enums.Status;
+import com.lansive.dispatch.entity.BaseEntity;
+import com.lansive.dispatch.entity.system.User;
 
 import java.util.Date;
 

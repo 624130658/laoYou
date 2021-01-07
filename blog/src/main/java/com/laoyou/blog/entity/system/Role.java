@@ -1,6 +1,6 @@
-package com.laoyou.blog.entity.system;
+package com.lansive.dispatch.entity.system;
 
-import com.laoyou.blog.entity.BaseEntity;
+import com.lansive.dispatch.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +27,4 @@ public class Role extends BaseEntity {
 
     @Column(name = "extra", columnDefinition = "varchar(1000) comment '额外说明'")
     private String extra;
-
-    @Column(name = "permissions", columnDefinition = "varchar(1000) comment '权限id拼接，英文逗号分隔'")
-    private String permissions;
 }
