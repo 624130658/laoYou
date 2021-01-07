@@ -1,3 +1,31 @@
 spring:
   profiles:
+#    active: production
     active: dev
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+  mvc:
+    static-path-pattern: /static/**
+  static-locations: classpath:/static/,classpath:/public/
+server:
+  port: 8080
+  tomcat:
+    max-swallow-size: 10MB
+    max-http-form-post-size: 10MB
+  servlet:
+    context-path: /dispatch

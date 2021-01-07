@@ -1,0 +1,74 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    #myModal .modal-body-row {
+        margin: 20px;
+    }
+
+    #myModal .modal-body-div {
+        display: inline-block;
+    }
+
+    #myModal .modal-hidden {
+        display: none;
+    }
+
+    #myModal .modal-body-div .modal-body-control {
+        width: calc(100% - 5em - 5px);
+    }
+
+    #myModal .modal-body-control {
+        display: inline-block;
+    }
+
+    #myModal .modal-body-label {
+        width: 5em;
+    }
+</style>
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <input type="hidden">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="row modal-body-row">
+                    <input class="form-control" type="hidden" field="id" name="id" th:value="${my.id}"/>
+                    <div class="form-group col-sm-6 modal-body-div">
+                        <label class="modal-body-label"><em class="detail-hidden" style="color: #f56c6c">*&nbsp;</em>角色名称:</label>
+                        <div class="modal-body-control">
+                            <input class="form-control" type="text" name="name" field="name"
+                                   th:value="${my.name}"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6 modal-body-div">
+                        <label class="modal-body-label"><em class="detail-hidden" style="color: #f56c6c">*&nbsp;</em>编码:</label>
+                        <div class="modal-body-control">
+                            <input class="form-control" type="text" name="code" field="code"
+                                   th:value="${my.code}"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 modal-body-div">
+                        <label class="modal-body-label">额外说明:</label>
+                        <div class="modal-body-control">
+                            <input class="form-control" type="text" name="extra" field="extra"
+                                   th:value="${my.extra}"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button name="updateBtn" type="button" class="btn btn-primary detail-hidden add-hidden">
+                修改
+            </button>
+            <button name="addBtn" type="button" class="btn btn-primary detail-hidden update-hidden">保存
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        </div>
+    </div>
+</div>
+</html>

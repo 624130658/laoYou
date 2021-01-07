@@ -1,0 +1,75 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    #myModal .modal-body-row {
+        margin: 20px;
+    }
+
+    #myModal .modal-body-div {
+        display: inline-block;
+    }
+
+    #myModal .modal-hidden {
+        display: none;
+    }
+
+    #myModal .modal-body-div .modal-body-control {
+        width: calc(100% - 5em - 5px);
+    }
+
+    #myModal .modal-body-control {
+        display: inline-block;
+    }
+
+    #myModal .modal-body-label {
+        width: 5em;
+    }
+</style>
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <input type="hidden">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="row modal-body-row">
+                    <div class="form-group col-sm-12 modal-body-div">
+                        <label class="modal-body-label">上级组织:</label>
+                        <div class="modal-body-control">
+                            <input class="form-control" type="hidden" field="id" name="id" th:value="${my.id}"/>
+                            <input class="form-control" type="hidden" name="parentId" th:value="${parent.id}"/>
+                            <input class="form-control add-disabled update-disabled" type="text" name="parentName"
+                                   th:value="${parent.name}"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6 modal-body-div">
+                        <label class="modal-body-label"><em class="detail-hidden" style="color: #f56c6c">*&nbsp;</em>组织名称:</label>
+                        <div class="modal-body-control">
+                            <input class="form-control" type="text" name="name" field="name" vali="NotNull"
+                                   th:value="${my.name}"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6 modal-body-div">
+                        <label class="modal-body-label">显示顺序:</label>
+                        <div class="modal-body-control">
+                            <input class="form-control" type="number" min="1" name="priority" field="priority"
+                                   th:value="${my.priority}"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button name="updateBtn" type="button" class="btn btn-primary detail-hidden add-hidden" onclick="update()">
+                修改
+            </button>
+            <button name="addBtn" type="button" class="btn btn-primary detail-hidden update-hidden" onclick="add()">保存
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        </div>
+    </div>
+</div>
+</html>

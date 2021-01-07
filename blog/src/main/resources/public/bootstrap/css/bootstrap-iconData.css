@@ -1,0 +1,48 @@
+.scrollbars {
+	width: 300px;
+	height: 150px;
+	background-color: #fff;
+	overflow: scroll;
+	overflow-x: hidden;
+	margin-top:10px;
+	border: 8px solid #F1F1F1;
+	border-right: none;
+	float: left;
+}
+
+.scrollbars>div {
+	width: 500px;
+	height: 300px;
+}
+
+.scrollbars1::-webkit-scrollbar {
+	width: 8px;
+}
+
+.scrollbars1::-webkit-scrollbar-track {
+	background-color: #F1F1F1;
+	/*-webkit-border-radius: 2em;
+				-moz-border-radius: 2em;
+				border-radius: 2em;*/
+}
+
+.scrollbars1::-webkit-scrollbar-thumb {
+	background-color: #A9A9A9;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+
+.view {
+	border: 8px solid #F1F1F1;
+	width: 100px;
+	height: 150px;
+	float: left;
+	margin-top:10px;
+	border-left: none;
+	text-align: center;
+}
+#view_cont
+{
+	padding-top:20px;
+}
